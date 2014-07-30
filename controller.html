@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Controller</title>
+
+</head>
+<body>
+    <div class="gfyitem" data-title=true data-autoplay=false data-controls=true data-expand=false data-id="BestYellowishElephantseal" ></div> 
+    <canvas id="demoCanvas" width="500" height="500"></canvas>
+</div>
+
+<script src="http://code.createjs.com/createjs-2013.12.12.min.js"></script>
+<script type="text/javascript" src="gfycat.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+
+    var stage, circle;
+    var elem = document.getElementsByClassName('gfyitem')[0];
+    var frameData = [
+    {
+        frame: 0,
+        moveName: 'Testing',
+        pressButton: 'Button'
+    },
+    {
+        frame: 30,
+        moveName: 'Testing 2',
+        pressButton: 'Button'
+    },
+    {
+        frame: 60,
+        moveName: 'Testing 3',
+        pressButton: 'Button'
+    }
+    ];
+
+    function init() {
+        stage = new createjs.Stage("demoCanvas");
+        circle = new createjs.Shape();
+
+        circle.graphics.beginFill("red").drawCircle(0, 0, 50);
+        circle.x = 100;
+        circle.y = 100;
+        
+        stage.addChild(circle);
+
+        stage.update();
+
+        elem.addEventListener('frameTick', tick, false);
+    }
+
+    function tick(event) {
+        for (var i = 0; i < frameData.length; i++) {
+            if (event.detail == frameData[i].frame) {
+                circle.x = frameData[i].frame * 5;
+                stage.update(); // important!!
+            }
+        };
+    }
+    
+    gfyCollection.init();
+    init();
+</script>
+
+</body>
+</html>
