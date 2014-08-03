@@ -12,61 +12,64 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="frameinput.js"></script>
     <script type="text/javascript">
+        var gfyObj = gfyCollection.get()[0];
+
         //Frame Data for Wave Shine
         var frameData = [
             {
                 frame: 2,
-                pressButton: 'Shine'
+                input: 'Shine'
             },
             {
                 frame: 3,
-                pressButton: 'Jump'
+                input: 'Jump'
             },
             {
                 frame: 4,
-                pressButton: 'Shine'
+                input: 'Shine'
             },
             {
                 frame: 5,
-                pressButton: 'Turn Around'
+                input: 'Turn Around'
             },
             {
                 frame: 7,
-                pressButton: 'Jump'
+                input: 'Jump'
             },
             {
                 frame: 8,
-                pressButton: 'Wavedash'
+                input: 'Wavedash'
             },
             {
                 frame: 11,
-                pressButton: 'Shine'
+                input: 'Shine'
             },
             {
                 frame: 12,
-                pressButton: 'Jump'
+                input: 'Jump'
             },
             {
                 frame: 13,
-                pressButton: 'Shine'
+                input: 'Shine'
             },
             {
                 frame: 14,
-                pressButton: 'Turn Around'
+                input: 'Turn Around'
             },
             {
                 frame: 16,
-                pressButton: 'Jump'
+                input: 'Jump'
             },
             {
                 frame: 17,
-                pressButton: 'Wavedash'
+                input: 'Wavedash'
             }
         ];
 
+        //Initialize Frame Inputs
         $('.inputs').frameinputs({
-            'gfycat': 'demoGfy',
-            'framedata': frameData
+            'gfycat': gfyObj,
+            'frameData': frameData
         });
     </script>
 
