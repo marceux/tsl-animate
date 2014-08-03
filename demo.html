@@ -12,8 +12,61 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="frameinput.js"></script>
     <script type="text/javascript">
+        //Frame Data for Wave Shine
+        var frameData = [
+            {
+                frame: 2,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 3,
+                pressButton: ['Y']
+            },
+            {
+                frame: 4,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 5,
+                pressButton: ['D-Left']
+            },
+            {
+                frame: 7,
+                pressButton: ['Y']
+            },
+            {
+                frame: 8,
+                pressButton: ['L', 'D-Down', 'D-Right']
+            },
+            {
+                frame: 11,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 12,
+                pressButton: ['Y']
+            },
+            {
+                frame: 13,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 14,
+                pressButton: ['D-Right']
+            },
+            {
+                frame: 16,
+                pressButton: ['Y']
+            },
+            {
+                frame: 17,
+                pressButton: ['L', 'D-Down', 'D-Left']
+            }
+        ];
+
         $('.inputs').frameinputs({
-            'gfycat': 'demoGfy'
+            'gfycat': 'demoGfy',
+            'framedata': framedata
         });
     </script>
 
