@@ -677,13 +677,24 @@ var gfyObject = function (gfyElem) {
 (function( $ ) {
 
 	//Start by creating the new function
-	$.fn.frameinputs = function ( frameData ) {
+	$.fn.frameinputs = function ( data ) {
+		var gfyCat = data.gfycat;
+		var gfyEl = gfyCat.getElem;
+		var frameData = data.frameData;
 
 		//Return the function and stuff
-		return this.each(function(index, el) {
+		return this.each( function(index, el) {
 			
-		});
+			function tick(event) {
+				for (var i = 0; i < frameData.length; i++) {
+          if (event.detail == frameData[i].frame) {
+          	$(el).text( frameData[i].input )
+          }
+        };
+			};
 
+			gfyEl.addEventListener('frameTick', tick, false);
+		});
 	};
 
 }( jQuery ));
