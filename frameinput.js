@@ -618,7 +618,11 @@ var gfyObject = function (gfyElem) {
         getFrame: getFrame,
         getElem: gfyElem
     }
-}
+};
+
+(function() {
+	gfyCollection.init();
+}());
 
 //Request Animation Frame Polyfill
 (function() {
