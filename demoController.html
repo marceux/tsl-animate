@@ -6,18 +6,26 @@
 
 </head>
 <body>
-    <div class="gfyitem" data-title=true data-autoplay=false data-controls=true data-expand=false data-id="LegalInnocentEastrussiancoursinghounds"></div> 
+    <div class="gfyitem" data-title=true data-autoplay=false data-controls=true data-expand=false data-id="LegalInnocentEastrussiancoursinghounds"></div>
     <canvas id="demoCanvas"></canvas>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="http://code.createjs.com/createjs-2013.12.12.min.js"></script>
     <script type="text/javascript" src="frameinput.js"></script>
     <script type="text/javascript">
 
         //Necessary Variables
-        var stage;
-        var imgA, imgB, imgY, imgL, imgDDown, imgDLeft, imgDRight;
-        var btnA, btnB, btnY, btnL, btnDDown, btnDLeft, btnDRight;
+        var canvas = document.getElementById('demoCanvas').getContext('2d');
+        var sources = [
+            "./assets/btn-A.png",
+            "./assets/btn-B.png",
+            "./assets/btn-Y.png",
+            "./assets/left-trigger.png",
+            "./assets/dpad-down.png",
+            "./assets/dpad-left.png",
+            "./assets/dpad-right.png"
+        ];
+        var images = [];
+
         var cursor;
         var elem = gfyCollection.get()[0].getElem;
 
@@ -73,39 +81,24 @@
             }
         ];
 
+        init();
+
         //Initialize All the Images and Event Handlers
         function init() {
-            stage = new createjs.Stage("demoCanvas");
-            
-            imgA = new Image();
-            imgB = new Image();
-            imgY = new Image();
-            imgL = new Image();
-            imgDDown = new Image();
-            imgDLeft = new Image();
-            imgDRight = new Image();
-
-            imgA.src = "./assets/btn-A.png";
-            imgB.src = "./assets/btn-B.png";
-            imgY.src = "./assets/btn-Y.png";
-            imgL.src = "./assets/left-trigger.png";
-            imgDDown.src = "./assets/dpad-down.png";
-            imgDLeft.src = "./assets/dpad-left.png";
-            imgDRight.src = "./assets/dpad-right.png";
-            
-            btnA = new createjs.Bitmap(imgA);
-            btnB = new createjs.Bitmap(imgB);
-            btnY = new createjs.Bitmap(imgY);
-            btnL = new createjs.Bitmap(imgL);
-            btnDDown = new createjs.Bitmap(imgDDown);
-            btnDLeft = new createjs.Bitmap(imgDLeft);
-            btnDRight = new createjs.Bitmap(imgDRight);
-            
-            stage.update();
-
-            elem.addEventListener('frameTick', tick, false);
+            for (var i = 0; i < sources.length; i++) {
+                (function ( source, images ) {
+                    var image = new Image();
+                    image.src = source;
+                    image.onload = function() {
+                        context.drawImage(image, 0, 0);
+                        console.log(image);
+                    }
+                    images.push[image];
+                }(sources[i], images));
+            };
         }
-
+        
+        /*
         //Add btn to canvas depending on frame data
         function addBtn(btn, cursor) {
             if (btn == 'A') {
@@ -157,9 +150,7 @@
                 }
             };
         }
-
-        //Initialize Whole Thing
-        init();
+        */
     </script>
 
 </body>
