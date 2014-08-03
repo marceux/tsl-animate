@@ -14,56 +14,54 @@
  * as desired.
  */
 var gfyCollection = function () {
+  var collection = [];
 
-    var collection = [];
+  // Helper function -- only required because some browsers do not have get by class name
+  function byClass(className, obj) {
 
-    // Helper function -- only required because some browsers do not have get by class name
-    function byClass(className, obj) {
+      if (obj.getElementsByClassName) {
+          return obj.getElementsByClassName(className);
+      } else {
+          var retnode = [];
+          var elem = obj.getElementsByTagName('*');
+          for (var i = 0; i < elem.length; i++) {
+              if ((' ' + elem[i].className + ' ').indexOf(' ' + className + ' ') > -1) retnode.push(elem[i]);
+          }
+          return retnode;
+      }
+  }
 
-        if (obj.getElementsByClassName) {
-            return obj.getElementsByClassName(className);
-        } else {
-            var retnode = [];
-            var elem = obj.getElementsByTagName('*');
-            for (var i = 0; i < elem.length; i++) {
-                if ((' ' + elem[i].className + ' ').indexOf(' ' + className + ' ') > -1) retnode.push(elem[i]);
-            }
-            return retnode;
-        }
-    }
+  function init() {
+      scan();
+  }
 
-    function init() {
-        scan();
-    }
+  function scan() {
+      // this can be run multiple times, so we'll add to any existing gfycats
+      var last = collection.length;
+      // find each gfycat on page and run its init
+      elem_coll = byClass("gfyitem", document);
+      for (var i = 0; i < elem_coll.length; i++) {
+          // don't need to worry about finding existing gfyitems - they are
+          // replaced by gfyObject
+          var gfyObj = new gfyObject(elem_coll[i]);
+          collection.push(gfyObj);
+      }
+      // run init _after_ all are collected, because the init function deletes and recreates
+      for (var i = last; i < collection.length; i++) {
+          collection[i].init();
+      }
+  }
 
-    function scan() {
-        // this can be run multiple times, so we'll add to any existing gfycats
-        var last = collection.length;
-        // find each gfycat on page and run its init
-        elem_coll = byClass("gfyitem", document);
-        for (var i = 0; i < elem_coll.length; i++) {
-            // don't need to worry about finding existing gfyitems - they are
-            // replaced by gfyObject
-            var gfyObj = new gfyObject(elem_coll[i]);
-            collection.push(gfyObj);
-        }
-        // run init _after_ all are collected, because the init function deletes and recreates
-        for (var i = last; i < collection.length; i++) {
-            collection[i].init();
-        }
-    }
+  function get() {
+      // optional interface for an external script to interact with all objects on a page
+      return collection;
+  }
 
-    function get() {
-        // optional interface for an external script to interact with all objects on a page
-        return collection;
-    }
-
-    return {
-        init: init,
-        get: get,
-        scan: scan
-    }
-
+  return {
+      init: init,
+      get: get,
+      scan: scan
+  }
 }();
 
 /*
@@ -287,17 +285,23 @@ var gfyObject = function (gfyElem) {
     }
 
     function checkCurrentFrame() {
-        time = vid.currentTime;
+  		//Check for a change in time
+      if (vid.currentTime !== lastTime) {
+      	//Current frame is the current time divided by the framerate
+        currentFrame = Math.ceil(vid.currentTime * gfyFrameRate);
 
-        if (time !== lastTime) {
-            currentFrame = Math.ceil(time * gfyFrameRate);
-            frameTick = new CustomEvent('frameTick', {'detail': currentFrame})
-            gfyElem.dispatchEvent(frameTick);
-            lastTime = time;
-        }
+        //Create frameTick event
+        frameTick = new CustomEvent('frameTick', {'detail': currentFrame})
 
-        //wait approximately 16ms and run again
-        requestAnimationFrame(checkCurrentFrame);
+        //Dispatch custom event
+        gfyElem.dispatchEvent(frameTick);
+
+        //Set lastTime to currentTime
+        lastTime = vid.currentTime;
+      }
+
+      //wait approximately 16ms and run again
+      requestAnimationFrame(checkCurrentFrame);
     }
 
     function init() {
