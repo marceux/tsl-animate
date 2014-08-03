@@ -8,163 +8,159 @@
 <body>
     <div class="gfyitem" data-title=true data-autoplay=false data-controls=true data-expand=false data-id="LegalInnocentEastrussiancoursinghounds"></div> 
     <canvas id="demoCanvas"></canvas>
-</div>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="http://code.createjs.com/createjs-2013.12.12.min.js"></script>
-<script type="text/javascript" src="gfycat.js"></script>
-<script type="text/javascript">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="http://code.createjs.com/createjs-2013.12.12.min.js"></script>
+    <script type="text/javascript" src="frameinput.js"></script>
+    <script type="text/javascript">
 
-    //Necessary Variables
-    var stage;
-    var imgA, imgB, imgY, imgL, imgDDown, imgDLeft, imgDRight;
-    var btnA, btnB, btnY, btnL, btnDDown, btnDLeft, btnDRight;
-    var cursor;
-    var elem = document.getElementsByClassName('gfyitem')[0];
+        //Necessary Variables
+        var stage;
+        var imgA, imgB, imgY, imgL, imgDDown, imgDLeft, imgDRight;
+        var btnA, btnB, btnY, btnL, btnDDown, btnDLeft, btnDRight;
+        var cursor;
+        var elem = gfyCollection.get()[0].getElem;
 
-    //Frame Data for Wave Shine
-    var frameData = [
-        {
-            frame: 2,
-            pressButton: ['D-Down', 'B']
-        },
-        {
-            frame: 3,
-            pressButton: ['Y']
-        },
-        {
-            frame: 4,
-            pressButton: ['D-Down', 'B']
-        },
-        {
-            frame: 5,
-            pressButton: ['D-Left']
-        },
-        {
-            frame: 7,
-            pressButton: ['Y']
-        },
-        {
-            frame: 8,
-            pressButton: ['L', 'D-Down', 'D-Right']
-        },
-        {
-            frame: 11,
-            pressButton: ['D-Down', 'B']
-        },
-        {
-            frame: 12,
-            pressButton: ['Y']
-        },
-        {
-            frame: 13,
-            pressButton: ['D-Down', 'B']
-        },
-        {
-            frame: 14,
-            pressButton: ['D-Right']
-        },
-        {
-            frame: 16,
-            pressButton: ['Y']
-        },
-        {
-            frame: 17,
-            pressButton: ['L', 'D-Down', 'D-Left']
-        }
-    ];
-
-    //Initialize All the Images and Event Handlers
-    function init() {
-        stage = new createjs.Stage("demoCanvas");
-        
-        imgA = new Image();
-        imgB = new Image();
-        imgY = new Image();
-        imgL = new Image();
-        imgDDown = new Image();
-        imgDLeft = new Image();
-        imgDRight = new Image();
-
-        imgA.src = "./assets/btn-A.png";
-        imgB.src = "./assets/btn-B.png";
-        imgY.src = "./assets/btn-Y.png";
-        imgL.src = "./assets/left-trigger.png";
-        imgDDown.src = "./assets/dpad-down.png";
-        imgDLeft.src = "./assets/dpad-left.png";
-        imgDRight.src = "./assets/dpad-right.png";
-        
-        btnA = new createjs.Bitmap(imgA);
-        btnB = new createjs.Bitmap(imgB);
-        btnY = new createjs.Bitmap(imgY);
-        btnL = new createjs.Bitmap(imgL);
-        btnDDown = new createjs.Bitmap(imgDDown);
-        btnDLeft = new createjs.Bitmap(imgDLeft);
-        btnDRight = new createjs.Bitmap(imgDRight);
-        
-        stage.update();
-
-        elem.addEventListener('frameTick', tick, false);
-    }
-
-    //Add btn to canvas depending on frame data
-    function addBtn(btn, cursor) {
-        if (btn == 'A') {
-            stage.addChild(btnA);
-            btnA.x = cursor;
-            cursor = cursor + btnA.image.width;
-        } else if (btn == 'B') {
-            stage.addChild(btnB);
-            btnB.x = cursor;
-            cursor = cursor + btnB.image.width;
-        } else if (btn == 'Y') {
-            stage.addChild(btnY);
-            btnY.x = cursor;
-            cursor = cursor + btnY.image.width;
-        } else if (btn == 'L') {
-            stage.addChild(btnL);
-            btnL.x = cursor;
-            cursor = cursor + btnL.image.width;
-        } else if (btn == 'D-Down') {
-            stage.addChild(btnDDown);
-            btnDDown.x = cursor;
-            cursor = cursor + btnDDown.image.width;
-        } else if (btn == 'D-Left') {
-            stage.addChild(btnDLeft);
-            btnDLeft.x = cursor;
-            cursor = cursor + btnDLeft.image.width;
-        } else if (btn == 'D-Right') {
-            stage.addChild(btnDRight);
-            btnDRight.x = cursor;
-            cursor = cursor + btnDRight.image.width;
-        }
-
-        return cursor;
-    }
-
-    //When the frame ticks, do this function
-    function tick(event) {
-        stage.removeAllChildren();
-        stage.update();
-
-        for (var i = 0; i < frameData.length; i++) {
-            if (event.detail == frameData[i].frame) {
-                cursor = 0;
-                for (var j = 0; j < frameData[i].pressButton.length; j++) {
-                    cursor = addBtn(frameData[i].pressButton[j], cursor);
-                };
-                stage.update(); // important!!
-                break;
+        //Frame Data for Wave Shine
+        var frameData = [
+            {
+                frame: 2,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 3,
+                pressButton: ['Y']
+            },
+            {
+                frame: 4,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 5,
+                pressButton: ['D-Left']
+            },
+            {
+                frame: 7,
+                pressButton: ['Y']
+            },
+            {
+                frame: 8,
+                pressButton: ['L', 'D-Down', 'D-Right']
+            },
+            {
+                frame: 11,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 12,
+                pressButton: ['Y']
+            },
+            {
+                frame: 13,
+                pressButton: ['D-Down', 'B']
+            },
+            {
+                frame: 14,
+                pressButton: ['D-Right']
+            },
+            {
+                frame: 16,
+                pressButton: ['Y']
+            },
+            {
+                frame: 17,
+                pressButton: ['L', 'D-Down', 'D-Left']
             }
-        };
-    }
-    
-    //Initialize gfycat
-    gfyCollection.init();
+        ];
 
-    //Initialize Whole Thing
-    init();
-</script>
+        //Initialize All the Images and Event Handlers
+        function init() {
+            stage = new createjs.Stage("demoCanvas");
+            
+            imgA = new Image();
+            imgB = new Image();
+            imgY = new Image();
+            imgL = new Image();
+            imgDDown = new Image();
+            imgDLeft = new Image();
+            imgDRight = new Image();
+
+            imgA.src = "./assets/btn-A.png";
+            imgB.src = "./assets/btn-B.png";
+            imgY.src = "./assets/btn-Y.png";
+            imgL.src = "./assets/left-trigger.png";
+            imgDDown.src = "./assets/dpad-down.png";
+            imgDLeft.src = "./assets/dpad-left.png";
+            imgDRight.src = "./assets/dpad-right.png";
+            
+            btnA = new createjs.Bitmap(imgA);
+            btnB = new createjs.Bitmap(imgB);
+            btnY = new createjs.Bitmap(imgY);
+            btnL = new createjs.Bitmap(imgL);
+            btnDDown = new createjs.Bitmap(imgDDown);
+            btnDLeft = new createjs.Bitmap(imgDLeft);
+            btnDRight = new createjs.Bitmap(imgDRight);
+            
+            stage.update();
+
+            elem.addEventListener('frameTick', tick, false);
+        }
+
+        //Add btn to canvas depending on frame data
+        function addBtn(btn, cursor) {
+            if (btn == 'A') {
+                stage.addChild(btnA);
+                btnA.x = cursor;
+                cursor = cursor + btnA.image.width;
+            } else if (btn == 'B') {
+                stage.addChild(btnB);
+                btnB.x = cursor;
+                cursor = cursor + btnB.image.width;
+            } else if (btn == 'Y') {
+                stage.addChild(btnY);
+                btnY.x = cursor;
+                cursor = cursor + btnY.image.width;
+            } else if (btn == 'L') {
+                stage.addChild(btnL);
+                btnL.x = cursor;
+                cursor = cursor + btnL.image.width;
+            } else if (btn == 'D-Down') {
+                stage.addChild(btnDDown);
+                btnDDown.x = cursor;
+                cursor = cursor + btnDDown.image.width;
+            } else if (btn == 'D-Left') {
+                stage.addChild(btnDLeft);
+                btnDLeft.x = cursor;
+                cursor = cursor + btnDLeft.image.width;
+            } else if (btn == 'D-Right') {
+                stage.addChild(btnDRight);
+                btnDRight.x = cursor;
+                cursor = cursor + btnDRight.image.width;
+            }
+
+            return cursor;
+        }
+
+        //When the frame ticks, do this function
+        function tick(event) {
+            stage.removeAllChildren();
+            stage.update();
+
+            for (var i = 0; i < frameData.length; i++) {
+                if (event.detail == frameData[i].frame) {
+                    cursor = 0;
+                    for (var j = 0; j < frameData[i].pressButton.length; j++) {
+                        cursor = addBtn(frameData[i].pressButton[j], cursor);
+                    };
+                    stage.update(); // important!!
+                    break;
+                }
+            };
+        }
+
+        //Initialize Whole Thing
+        init();
+    </script>
 
 </body>
 </html>
