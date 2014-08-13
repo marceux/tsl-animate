@@ -615,12 +615,15 @@
    */
   
 	$.fn.frameinputs = function ( frameData ) {
-
     var $this = $(this);
-    var gfyWrapper = $this.data( 'target' );
-    var gfyEl = document.getElementById( gfyWrapper );
+
+    //gfyCat Element
+    var gfyEl = document.getElementById( $this.data( 'target' ) );
+
+    //new gfyObject
     var gfyObj = new gfyObject( gfyEl );
 
+    //callback function for 'frameTick' event
 		function tick( event ) {
 			for ( var i = 0; i < frameData.length; i++ ) {
         if ( event.detail == frameData[i].frame ) {
@@ -629,7 +632,9 @@
       };
 		};
 
+    //initialize gfyObject
     gfyObj.init();
+
 		gfyEl.addEventListener('frameTick', tick, false);
 	};
 
