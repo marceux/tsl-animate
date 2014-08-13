@@ -6,14 +6,12 @@
 
 </head>
 <body>
-    <div id="demoGfy" class="gfyitem" data-title=true data-autoplay=false data-controls=true data-expand=false data-id="LegalInnocentEastrussiancoursinghounds"></div>
-    <span class="inputs"></span>
+    <div id="demoGfy" data-title=true data-autoplay=false data-controls=true data-expand=false data-id="LegalInnocentEastrussiancoursinghounds"></div>
+    <div id="controller" class="gc-controller" data-target="demoGfy"></div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="frameinput.js"></script>
     <script type="text/javascript">
-        var gfyObj = gfyCollection.get()[0];
-
         //Frame Data for Wave Shine
         var frameData = [
             {
@@ -67,11 +65,7 @@
         ];
 
         //Initialize Frame Inputs
-        $('.inputs').frameinputs({
-            'gfycat': gfyObj,
-            'frameData': frameData
-        });
+        $( '#controller' ).frameinputs( frameData );
     </script>
-
 </body>
 </html>
