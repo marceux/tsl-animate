@@ -6,7 +6,7 @@
 </head>
 <body>
     <div id="demoGfy" data-title=true data-autoplay=false data-controls=true data-expand=false data-id="LegalInnocentEastrussiancoursinghounds"></div>
-    <div class="controller-wrapper" style="width: 238px">
+    <div class="controller-wrapper" style="width: 50%">
         <svg 
             id="gc-1"
             class="controller"
@@ -164,41 +164,44 @@
                         c25.377,25.377,166.473,82.886,204.085,83.827c37.613,0.939,179.257-62.179,203.363-83.472
                         c24.46-21.604,86.591-175.619,86.591-204.83C1053.655,977.09,986.926,819.826,969.094,801.995z"/>
                 </g>
+                
+                <!-- Stick -->
+                <g class="controlstick-stick">
+                    <!-- 4th Ring -->
+                    <g class="controlstick-ring">
+                        <!-- Outline -->
+                        <ellipse class="outline" cx="763.709" cy="1008.932" rx="248.436" ry="238.772"/>
+                        
+                        <!-- Core -->
+                        <ellipse class="core" fill="#EEEEEE" cx="763.709" cy="1008.931" rx="234.287" ry="225.174"/>
+                    </g>
 
-                <!-- 4th Ring -->
-                <g class="controlstick-ring">
-                    <!-- Outline -->
-                    <ellipse class="outline" cx="763.709" cy="1008.932" rx="248.436" ry="238.772"/>
-                    
-                    <!-- Core -->
-                    <ellipse class="core" fill="#EEEEEE" cx="763.709" cy="1008.931" rx="234.287" ry="225.174"/>
-                </g>
+                    <!-- 3rd Ring-->
+                    <g class="controlstick-ring">                
+                        <!-- Outline -->
+                        <ellipse class="outline" fill="#ACACAC" cx="762.127" cy="1009.895" rx="211.472" ry="199.687"/>
+                        
+                        <!-- Core -->
+                        <ellipse class="core" fill="#EEEEEE" cx="762.127" cy="1009.895" rx="199.429" ry="188.315"/>
+                    </g>
 
-                <!-- 3rd Ring-->
-                <g class="controlstick-ring">                
-                    <!-- Outline -->
-                    <ellipse class="outline" fill="#ACACAC" cx="762.127" cy="1009.895" rx="211.472" ry="199.687"/>
-                    
-                    <!-- Core -->
-                    <ellipse class="core" fill="#EEEEEE" cx="762.127" cy="1009.895" rx="199.429" ry="188.315"/>
-                </g>
+                    <!-- 2nd Ring -->
+                    <g class="controlstick-ring">                
+                        <!-- Outline -->
+                        <ellipse class="outline" fill="#ACACAC" cx="761.956" cy="1015.155" rx="135.662" ry="128.104"/>
+                        
+                        <!-- Core -->
+                        <ellipse class="core" fill="#EEEEEE" cx="761.954" cy="1015.156" rx="123.949" ry="117.042"/>
+                    </g>
 
-                <!-- 2nd Ring -->
-                <g class="controlstick-ring">                
-                    <!-- Outline -->
-                    <ellipse class="outline" fill="#ACACAC" cx="761.956" cy="1015.155" rx="135.662" ry="128.104"/>
-                    
-                    <!-- Core -->
-                    <ellipse class="core" fill="#EEEEEE" cx="761.954" cy="1015.156" rx="123.949" ry="117.042"/>
-                </g>
-
-                <!-- 1st Ring -->                    
-                <g class="controlstick-ring">
-                    <!-- Outline -->
-                    <ellipse class="outline" fill="#ACACAC" cx="764.107" cy="1015.067" rx="53.976" ry="50.966"/>
-                    
-                    <!-- Core -->
-                    <ellipse class="core" fill="#EEEEEE" cx="764.104" cy="1015.071" rx="42.118" ry="39.771"/>
+                    <!-- 1st Ring -->                    
+                    <g class="controlstick-ring">
+                        <!-- Outline -->
+                        <ellipse class="outline" fill="#ACACAC" cx="764.107" cy="1015.067" rx="53.976" ry="50.966"/>
+                        
+                        <!-- Core -->
+                        <ellipse class="core" fill="#EEEEEE" cx="764.104" cy="1015.071" rx="42.118" ry="39.771"/>
+                    </g>
                 </g>
             </g>
 
@@ -298,7 +301,7 @@
                     C3678.516,1077.763,3626.516,829.763,3608.516,789.763z"/>
 
                 <!-- X Button -->
-                <path class="core" fill="#999999" d="M3595.318,797.151c-16.82-37.265-96.896-207.073-194.16-134.671
+                <path id="btnX" class="core" fill="#999999" d="M3595.318,797.151c-16.82-37.265-96.896-207.073-194.16-134.671
                     c-86.025,83.202,11.178,136.637,46.641,211.142c37.561,96.962-15.783,200.876,102.035,197.438
                     C3662.23,1062.171,3612.143,834.415,3595.318,797.151z"/>
             </g>
@@ -313,51 +316,63 @@
         var frameData = [
             {
                 frame: 2,
-                input: 'Shine'
+                buttons: ['b'],
+                ctrlStick: [270, 100]
             },
             {
                 frame: 3,
-                input: 'Jump'
+                buttons: ['y', 'x'],
+                ctrlStick: []
             },
             {
                 frame: 4,
-                input: 'Shine'
+                buttons: ['b'],
+                ctrlStick: [270, 100]
             },
             {
                 frame: 5,
-                input: 'Turn Around'
+                buttons: [],
+                ctrlStick: [180, 50]
             },
             {
                 frame: 7,
-                input: 'Jump'
+                buttons: ['y', 'x'],
+                ctrlStick: []
             },
             {
                 frame: 8,
-                input: 'Wavedash'
+                buttons: ['l', 'r'],
+                ctrlStick: [315, 100]
             },
             {
                 frame: 11,
-                input: 'Shine'
+                buttons: ['b'],
+                ctrlStick: [270, 100]
             },
             {
                 frame: 12,
-                input: 'Jump'
+                buttons: ['y', 'x'],
+                ctrlStick: []
             },
             {
                 frame: 13,
-                input: 'Shine'
+                buttons: ['b'],
+                ctrlStick: [270, 100]
             },
             {
                 frame: 14,
-                input: 'Turn Around'
+                buttons: [],
+                ctrlStick: [90, 50]
             },
             {
                 frame: 16,
-                input: 'Jump'
+                buttons: ['y', 'x'],
+                ctrlStick: []
             },
             {
                 frame: 17,
-                input: 'Wavedash'
+                buttons: ['l', 'r'],
+                ctrlStick: [225, 100]
             }
         ];
 
