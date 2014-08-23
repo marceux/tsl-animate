@@ -1,6 +1,6 @@
 //frameinputs.js
 
-(function( $ ) {
+(function( $, SVG ) {
 
   /**
    * Request Animation Frame polyfill
@@ -608,6 +608,32 @@
       }
   };
 
+  /* Wrap an existing node in an SVG.js element. This is a slight hack
+   * because svg.js does not (in general) provide a way to create an
+   * Element of a specific type (eg SVG.Ellipse, SVG.G, ...) from an
+   * existing node and still call the Element's constructor.
+   *
+   * So instead, we call the Element's constructor and delete the node
+   * it created (actually, just leaving it to garbage collection, since it
+   * hasn't been inserted into the doc yet), replacing it with the given node.
+   *
+   * Returns the newly created SVG.Element instance.
+   */
+
+  SVG.wrap = function(node) {
+      if (node.length) node = node[0]; // Allow using with or without jQuery selections
+      
+      try {
+          var element = new SVG(node);
+      } catch(e) {
+          throw("No such SVG type '" + node + "'");
+      }
+      
+      element.node = node;
+      
+      return element;
+  };
+
   /**
    * Creates controller animation on selected div
    * @param  {json} frameData [description]
@@ -616,6 +642,186 @@
   
 	$.fn.frameinputs = function ( frameData ) {
     var $this = $(this);
+    var svgGC = SVG( $this[0] );
+
+    //A Button
+    var $btnA = $this.find( '.button-a .core' );
+    var svgBtnA = SVG.wrap( $btnA[0] );
+    svgBtnA.active = function() {
+      this.fill({color: '#00BC8E', opacity: 1});
+    }
+    
+    svgBtnA.inactive = function() {
+      this.fill({color: '#6D998B', opacity: 1});
+    }
+
+    //B Button
+    var $btnB = $this.find( '.button-b .core' );
+    var svgBtnB = SVG.wrap( $btnB[0] );
+    svgBtnB.active = function() {
+      this.fill({color: '#FF0000', opacity: 1});
+    }
+
+    svgBtnB.inactive = function() {
+      this.fill({color: '#996D6D', opacity: 1});
+    }
+
+    //Y Button
+    var $btnY = $this.find( '.button-y .core' );
+    var svgBtnY = SVG.wrap( $btnY[0] );
+    svgBtnY.active = function() {
+      this.fill({color: '#EAEAEA', opacity: 1});
+    }
+
+    svgBtnY.inactive = function() {
+      this.fill({color: '#999999', opacity: 1});
+    }
+
+    //X Button
+    var $btnX = $this.find( '.button-x .core' );
+    var svgBtnX = SVG.wrap( $btnX[0] );
+    svgBtnX.active = function() {
+      this.fill({color: '#EAEAEA', opacity: 1});
+    }
+
+    svgBtnX.inactive = function() {
+      this.fill({color: '#999999', opacity: 1});
+    }
+
+    //L Button
+    var $btnL = $this.find( '.button-l .core' );
+    var svgBtnL = SVG.wrap( $btnL[0] );
+    svgBtnL.active = function() {
+      this.fill({color: '#EAEAEA', opacity: 1});
+    }
+
+    svgBtnL.inactive = function() {
+      this.fill({color: '#999999', opacity: 1});
+    }
+
+    //R Button
+    var $btnR = $this.find( '.button-r .core' );
+    var svgBtnR = SVG.wrap( $btnR[0] );
+    svgBtnR.active = function() {
+      this.fill({color: '#EAEAEA', opacity: 1});
+    }
+
+    svgBtnR.inactive = function() {
+      this.fill({color: '#999999', opacity: 1});
+    }
+
+    //Z Button
+    var $btnZ = $this.find( '.button-z .core' );
+    var svgBtnZ = SVG.wrap( $btnZ[0] );
+    svgBtnZ.active = function() {
+      this.fill({color: '#5600AE', opacity: 1});
+    }
+
+    svgBtnZ.inactive = function() {
+      this.fill({color: '#8E79AD', opacity: 1});
+    }
+
+    var $ctrlStick = $this.find( '.controlstick-stick' );
+    var svgCtrlStick = SVG.wrap( $ctrlStick[0] );
+
+    svgCtrlStick.stickmove = function( angle, percent ) {
+      //Perc  = Percentage of Strength * 115
+      //Rad   = Radians of Stick Direction
+      //x     = r sin(Rad)
+      //y     = r cos(Rad)
+      function getRadius ( percent ) {
+        return ( percent / 100 ) * 115;
+      }
+
+      function toRadians ( angle ) {
+        return angle * ( Math.PI / 180 );
+      }
+
+      var radians = toRadians ( angle );
+      var radius = getRadius( percent );
+
+      function getCoordX ( radians, radius ) {
+        return radius * Math.cos( radians );
+      }
+
+      function getCoordY ( radians, radius ) {
+        return radius * Math.sin( radians );
+      }
+
+      var x = getCoordX( radians, radius );
+      var y = -1 * getCoordY( radians, radius );
+
+      this.translate( x, y );
+    }
+
+    function revertController () {
+      svgBtnA.inactive();
+      svgBtnB.inactive();
+      svgBtnY.inactive();
+      svgBtnX.inactive();
+      svgBtnL.inactive();
+      svgBtnR.inactive();
+      svgBtnZ.inactive();
+      svgCtrlStick.stickmove( 0, 0 );
+    }
+
+    //Need to recreate frameData object...
+    var frameAnimations = [];
+
+    for ( var i = 0; i < frameData.length; i++ ) {
+      var tempFrame = {};
+
+      //Add Frame
+      tempFrame.frame = frameData[i].frame;
+
+      //Add Buttons
+      if ( frameData[i].buttons.length ) {
+        tempFrame.buttons = [];
+        var frameButtons = frameData[i].buttons;
+        for (var j = 0; j < frameButtons.length; j++) {
+          switch ( frameButtons[j] ) {
+            case 'a':
+              tempFrame.buttons.push(svgBtnA);
+              break;
+            
+            case 'b':
+              tempFrame.buttons.push(svgBtnB);
+              break;
+            
+            case 'y':
+              tempFrame.buttons.push(svgBtnY);
+              break;
+            
+            case 'x':
+              tempFrame.buttons.push(svgBtnX);
+              break;
+            
+            case 'l':
+              tempFrame.buttons.push(svgBtnL);
+              break;
+            
+            case 'r':
+              tempFrame.buttons.push(svgBtnR);
+              break;
+            
+            case 'z':
+              tempFrame.buttons.push(svgBtnZ);
+              break;
+          }
+        };
+      }
+
+      //Add Control Stick Method
+      if ( frameData[i].ctrlStick.length ) {
+        tempFrame.angle = frameData[i].ctrlStick[0];
+        tempFrame.percent = frameData[i].ctrlStick[1];
+        tempFrame.ctrlStick = function() {
+          svgCtrlStick.stickmove( this.angle, this.percent );
+        }
+      }
+
+      frameAnimations.push(tempFrame);
+    };
 
     //gfyCat Element
     var gfyEl = document.getElementById( $this.data( 'target' ) );
@@ -625,9 +831,20 @@
 
     //callback function for 'frameTick' event
 		function tick( event ) {
-			for ( var i = 0; i < frameData.length; i++ ) {
-        if ( event.detail == frameData[i].frame ) {
-        	$this.text( frameData[i].input )
+      revertController();
+			for ( var i = 0; i < frameAnimations.length; i++ ) {
+        if ( event.detail == frameAnimations[i].frame ) {
+          if ( frameAnimations[i].buttons ) {
+            console.log(frameAnimations[i].buttons);
+            for (var j = 0; j < frameAnimations[i].buttons.length; j++) {
+              console.log(frameAnimations[i].buttons[j]);
+              frameAnimations[i].buttons[j].active();
+            };
+          }
+
+          if ( frameAnimations[i].ctrlStick ) {
+            frameAnimations[i].ctrlStick();
+          }
         }
       };
 		};
@@ -638,4 +855,4 @@
 		gfyEl.addEventListener('frameTick', tick, false);
 	};
 
-}( jQuery ));
+}( jQuery, SVG ));
